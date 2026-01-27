@@ -1,70 +1,121 @@
-# Getting Started with Create React App
+<!-- # Sliding XOX Game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A strategic twist on the classic tic-tac-toe game built with React. Instead of just placing pieces, players must slide their pieces in a specific order, creating a more dynamic and challenging experience.
 
-## Available Scripts
+## 🎮 Game Features
+ 
+- **Two-Phase Gameplay**: Placement phase followed by strategic sliding phase
+- **Intelligent AI**: Play against a smart computer opponent
+- **Order-Based Movement**: Pieces must be moved in the order they were placed
+- **Modern UI**: Clean, responsive design with smooth animations
+- **Strategic Depth**: More complex than traditional tic-tac-toe
 
-In the project directory, you can run:
+## 🎯 How to Play
 
-### `npm start`
+### Phase 1: Placement
+1. Each player takes turns placing 3 pieces on the board
+2. Player X (red) goes first, followed by Player O (blue)
+3. Remember the order you place your pieces - this matters later!
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Phase 2: Sliding
+1. Once all 6 pieces are placed, the sliding phase begins
+2. Players must move their pieces **in the order they were placed**:
+   - 4th move: Move your 1st placed piece
+   - 6th move: Move your 2nd placed piece  
+   - 8th move: Move your 3rd placed piece
+   - 10th move: Move your 1st placed piece again (cycle repeats)
+3. Click any empty space to move your forced piece there
+4. No adjacency restrictions - pieces can "teleport" to any empty space
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Winning
+- Get 3 pieces in a row (horizontal, vertical, or diagonal)
+- Can be achieved in either placement or sliding phase
 
-### `npm test`
+## 🤖 AI Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The computer opponent includes:
+- **Strategic Placement**: Prefers center, corners, then sides
+- **Win Detection**: Takes winning moves when available
+- **Blocking**: Prevents player from winning
+- **Position Evaluation**: Analyzes all possible moves with scoring system
+- **Adaptive Strategy**: Makes smarter moves when player is winning
 
-### `npm run build`
+## 🚀 Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
+1. Clone or download this repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm start
+   ```
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🎨 Game Controls
 
-### `npm run eject`
+- **Play vs Computer**: Start a game against the AI opponent
+- **New Game**: Reset the board and start over
+- **Click empty spaces**: Move your forced piece to that location
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🧠 Strategy Tips
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Plan your placement order**: Remember which piece you'll be forced to move first
+2. **Control the center**: Center position is strategically important
+3. **Think ahead**: Consider where your pieces will be after forced movements
+4. **Block opportunities**: Watch for opponent's potential winning lines
+5. **Create multiple threats**: Set up multiple ways to win simultaneously
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 📁 Project Structure
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+src/
+├── App.js          # Main game logic and components
+├── App.css         # Game styling
+├── index.js        # React entry point
+└── index.css       # Global styles
+```
 
-## Learn More
+## 🛠 Technologies Used
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **React 18** - Frontend framework
+- **CSS3** - Styling and animations  
+- **JavaScript ES6+** - Game logic and AI
+- **Create React App** - Project setup and build tools
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🎮 Game States
 
-### Code Splitting
+The game manages several key states:
+- `board`: Current 3x3 game board
+- `gamePhase`: Either 'placement' or 'sliding'
+- `placementOrder`: Tracks order pieces were placed
+- `moveCount`: Determines which piece must move
+- `gameMode`: Either 'human' or 'computer'
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🧩 AI Algorithm
 
-### Analyzing the Bundle Size
+The computer uses a sophisticated evaluation system:
+- **Immediate win**: +1000 points
+- **Block player win**: +500 points
+- **Center position**: +30 points
+- **Corner positions**: +20 points
+- **Potential wins**: +10 points per line
+- **Give opponent advantage**: -15 points per line
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 📄 License
 
-### Making a Progressive Web App
+This project is open source and available under the MIT License.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🎉 Enjoy the Game!
 
-### Advanced Configuration
+Experience the strategic depth of Sliding XOX - where every placement matters and every move counts!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Available Scripts (Create React App) -->
