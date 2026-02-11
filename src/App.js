@@ -12,8 +12,6 @@ export default function SlidingXOX() {
   const [placementOrder, setPlacementOrder] = useState({ X: [], O: [] });
   const [moveCount, setMoveCount] = useState(0);
   const [forcedPieceIndex, setForcedPieceIndex] = useState(null);
-  const [gameMode, setGameMode] = useState('human'); // 'human' or 'computer'
-  const [isComputerThinking, setIsComputerThinking] = useState(false);
 
   // Get the piece that must be moved (in order of placement)
   const getForcedPieceToMove = () => {
@@ -108,7 +106,7 @@ export default function SlidingXOX() {
   };
 
   const handleCellClick = (index) => {
-    if (winner || (gameMode === 'computer' && !isX)) return;
+    if (winner) return;
     
     if (gamePhase === 'placement') {
       // Placement phase: each player places 3 pieces
@@ -179,7 +177,6 @@ export default function SlidingXOX() {
     setPlacementOrder({ X: [], O: [] });
     setMoveCount(0);
     setForcedPieceIndex(null);
-    setIsComputerThinking(false);
   };
 
   const isValidMove = (index) => {
@@ -392,25 +389,11 @@ export default function SlidingXOX() {
     setIsComputerThinking(false);
   };
 
-  // Trigger computer move when it's computer's turn
-  useEffect(() => {
-    if (!isX && gameMode === 'computer' && !winner && !isComputerThinking) {
-      const timer = setTimeout(() => {
-        makeComputerMove();
-      }, 1000);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [isX, gameMode, winner, gamePhase, board, moveCount]);
 
-  const toggleGameMode = () => {
-    setGameMode(gameMode === 'human' ? 'computer' : 'human');
-    resetGame();
-  };
 
   return (
     <div className="game">
-      <h1> XOX</h1>
+      <h1> KATA-XOX</h1>
       
       {winner && (
         <div className="winner-banner">
@@ -419,26 +402,12 @@ export default function SlidingXOX() {
       )}
       
       <div className="game-controls">
-        <button className="mode-button" onClick={toggleGameMode}>
-          {gameMode === 'human' ? 'Play vs Computer' : 'Play vs Human'}
-        </button>
         <button className="reset-button" onClick={resetGame}>
           New Game
         </button>
       </div>
       
-      <div className="game-info">
-        <p><strong>Mode: </strong>{gameMode === 'human' ? 'Human vs Human' : 'Human vs Computer'}</p>
-        {gamePhase === 'placement' ? (
-          <div>
-            
-          </div>
-        ) : (
-          <div>
-           
-          </div>
-        )}
-      </div>
+      
       
       <div className="board">
         {board.map((cell, i) => {
@@ -459,16 +428,20 @@ export default function SlidingXOX() {
               onClick={() => handleCellClick(i)}
             >
               {cell && !isAnimatingFrom && (
-                <span className={`mark ${cell === "X" ? "slide-x" : "slide-o"}`}>
-                  {cell}
-                </span>
+                <img
+                  src={cell === "X" ? "/1.png" : "/2.png"}
+                  alt={cell}
+                  className={`piece-image ${cell === "X" ? "piece-x" : "piece-o"}`}
+                />
               )}
               {isAnimatingTo && animatingMove && (
-                <span className={`mark sliding-piece ${
-                  board[animatingMove.from] === "X" ? "slide-x" : "slide-o"
-                }`}>
-                  {board[animatingMove.from]}
-                </span>
+                <img
+                  src={board[animatingMove.from] === "X" ? "/1.png" : "/2.png"}
+                  alt={board[animatingMove.from]}
+                  className={`piece-image sliding-piece ${
+                    board[animatingMove.from] === "X" ? "piece-x" : "piece-o"
+                  }`}
+                />
               )}
             </div>
           );
